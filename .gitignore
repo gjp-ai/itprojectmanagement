@@ -5,3 +5,8 @@
 *.key
 node_modules/
 .playwright-mcp/
+
+# Claude Code skill packages (tooling artifacts, not app code)
+.agents/
+.claude/skills/
+skills-lock.json
