@@ -15,19 +15,20 @@
 -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src https://formsubmit.co; base-uri 'none'; form-action 'none';">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23062e6f'/%3E%3Crect x='6' y='8' width='6' height='18' rx='1.5' fill='%23ffffff'/%3E%3Crect x='14' y='13' width='6' height='13' rx='1.5' fill='%23ffffff' opacity='0.85'/%3E%3Crect x='22' y='6' width='6' height='20' rx='1.5' fill='%23ffffff' opacity='0.7'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23450a0a'/%3E%3Crect x='6' y='8' width='6' height='18' rx='1.5' fill='%23ffffff'/%3E%3Crect x='14' y='13' width='6' height='13' rx='1.5' fill='%23ffffff' opacity='0.85'/%3E%3Crect x='22' y='6' width='6' height='20' rx='1.5' fill='%23ffffff' opacity='0.7'/%3E%3C/svg%3E">
 <style>
   /* ===================== Design tokens ===================== */
   :root {
-    /* Brand blue scale — Material Design 3 blue tonal palette (M3 role names
-       in comments; pre-checked for AA text contrast at the tones used here) */
-    --brand-blue-900: #062e6f; /* M3 tone ~20 — header surface */
-    --brand-blue-800: #0842a0; /* M3 tone ~30 — hover/pressed state */
-    --brand-blue-700: #0b57d0; /* M3 tone ~40 — primary (buttons, links, badges) */
-    --brand-blue-600: #1b6ef3; /* M3 tone ~50 — focus ring / lighter accents */
-    --brand-blue-500: #4c8df6; /* M3 tone ~60 — drag-over border */
-    --brand-blue-100: #d3e3fd; /* M3 primary-container tone ~90 */
-    --brand-blue-50:  #eaf1fe; /* M3 surface-container tint */
+    /* Brand red scale — a deep brick/crimson tonal ramp, deliberately darker
+       and less saturated than the alert red below so brand chrome (header,
+       buttons, focus ring) never reads as an error/critical/blocked state. */
+    --brand-red-900: #450a0a; /* header surface */
+    --brand-red-800: #7f1d1d; /* hover/pressed state */
+    --brand-red-700: #991b1b; /* primary (buttons, links, badges) */
+    --brand-red-600: #b91c1c; /* focus ring / lighter accents */
+    --brand-red-500: #dc2626; /* drag-over border */
+    --brand-red-100: #fecaca; /* container tint */
+    --brand-red-50:  #fef2f2; /* surface tint */
 
     --grey-900: #1f2933;
     --grey-700: #52606d;
@@ -36,16 +37,17 @@
     --grey-100: #f0f4f8;
     --white: #ffffff;
 
-    /* Priority colors are intentionally brand-independent: since blue is now
-       the brand/chrome color, "Medium" priority uses violet (not blue) so it
-       stays visually distinct from buttons, links, and the "In Progress"
-       status accent. */
+    /* Priority colors are intentionally brand-independent (fixed hex, not
+       brand vars). Now that red is the brand/chrome color, "Critical" priority
+       keeps a brighter, more saturated red than the brand's brick tone above
+       so the two stay visually distinguishable; "Medium" reverts to blue
+       (unclaimed now that blue isn't the brand). */
     --priority-critical: #c0322a;
     --priority-critical-bg: #fbe6e4;
     --priority-high: #b5720a;
     --priority-high-bg: #fdf1dc;
-    --priority-medium: #6d28d9;
-    --priority-medium-bg: #ede9fe;
+    --priority-medium: #1d4ed8;
+    --priority-medium-bg: #dbeafe;
     --priority-low: #52606d;
     --priority-low-bg: #eef1f4;
 
@@ -53,12 +55,13 @@
     --overdue-bg: #fbe6e4;
 
     /* Per-column status accents for at-a-glance board scanning. Fixed hues
-       (not brand-tied) so each status stays distinguishable from the blue
-       brand chrome and from each other: grey/teal/red/green. */
+       (not brand-tied) so each status stays distinguishable from the brand
+       chrome and from each other: grey/blue/red/green. "In Progress" reverts
+       to blue for the same reason Medium priority does. */
     --status-backlog: #64748b;
     --status-backlog-bg: #eef1f4;
-    --status-inprogress: #0f766e;
-    --status-inprogress-bg: #ccfbf1;
+    --status-inprogress: #1d4ed8;
+    --status-inprogress-bg: #dbeafe;
     --status-blocked: #c0322a;
     --status-blocked-bg: #fbe6e4;
     --status-done: #15803d;
@@ -74,9 +77,9 @@
     --radius: 10px;
     --radius-card: 16px;
     --radius-modal: 20px;
-    --shadow-card: 0 1px 3px rgba(6, 46, 111, 0.08), 0 1px 2px rgba(6, 46, 111, 0.05);
-    --shadow-card-hover: 0 12px 24px rgba(6, 46, 111, 0.14), 0 4px 8px rgba(6, 46, 111, 0.08);
-    --shadow-modal: 0 20px 50px rgba(6, 46, 111, 0.3);
+    --shadow-card: 0 1px 3px rgba(69, 10, 10, 0.08), 0 1px 2px rgba(69, 10, 10, 0.05);
+    --shadow-card-hover: 0 12px 24px rgba(69, 10, 10, 0.14), 0 4px 8px rgba(69, 10, 10, 0.08);
+    --shadow-modal: 0 20px 50px rgba(69, 10, 10, 0.3);
 
     --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
@@ -92,7 +95,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid var(--brand-blue-500);
+    outline: 3px solid var(--brand-red-500);
     outline-offset: 2px;
   }
 
@@ -103,7 +106,7 @@
 
   /* ===================== Header ===================== */
   header.app-header {
-    background: var(--brand-blue-900);
+    background: var(--brand-red-900);
     color: var(--white);
     padding: var(--space-4) var(--space-5);
   }
@@ -126,7 +129,7 @@
     display: block;
     font-size: 0.7rem;
     font-weight: 400;
-    color: var(--brand-blue-100);
+    color: var(--brand-red-100);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-top: 2px;
@@ -134,7 +137,7 @@
 
   .btn-add-task {
     background: var(--white);
-    color: var(--brand-blue-900);
+    color: var(--brand-red-900);
     border: none;
     border-radius: var(--radius);
     padding: var(--space-3) var(--space-4);
@@ -143,12 +146,12 @@
   }
 
   .btn-add-task:hover {
-    background: var(--brand-blue-100);
+    background: var(--brand-red-100);
   }
 
   .demo-note {
     font-size: 0.78rem;
-    color: var(--brand-blue-100);
+    color: var(--brand-red-100);
     margin-top: var(--space-2);
   }
 
@@ -266,8 +269,8 @@
   .column[data-status="Done"]        { --status-accent: var(--status-done); }
 
   .column.drag-over {
-    border-color: var(--brand-blue-500);
-    background: var(--brand-blue-50);
+    border-color: var(--brand-red-500);
+    background: var(--brand-red-50);
   }
 
   .column-header {
@@ -301,7 +304,7 @@
   }
 
   .count-badge {
-    background: var(--status-accent, var(--brand-blue-600));
+    background: var(--status-accent, var(--brand-red-600));
     color: var(--white);
     border-radius: 999px;
     padding: 1px 9px;
@@ -407,8 +410,8 @@
     width: 22px;
     height: 22px;
     border-radius: 999px;
-    background: var(--brand-blue-100);
-    color: var(--brand-blue-800);
+    background: var(--brand-red-100);
+    color: var(--brand-red-800);
     font-size: 0.64rem;
     font-weight: 700;
     letter-spacing: 0;
@@ -576,7 +579,7 @@
 
   .modal-header h2 {
     margin: 0;
-    color: var(--brand-blue-900);
+    color: var(--brand-red-900);
     font-size: 1.15rem;
   }
 
@@ -639,7 +642,7 @@
   }
 
   .btn-submit {
-    background: var(--brand-blue-600);
+    background: var(--brand-red-600);
     border: none;
     border-radius: var(--radius);
     padding: var(--space-3) var(--space-4);
@@ -653,7 +656,7 @@
   }
 
   .btn-submit:hover:not(:disabled) {
-    background: var(--brand-blue-700);
+    background: var(--brand-red-700);
   }
 
   /* ===================== Toasts ===================== */
@@ -677,7 +680,7 @@
     color: var(--white);
   }
 
-  .toast.success { background: var(--brand-blue-700); }
+  .toast.success { background: var(--status-done); }
   .toast.warning { background: #b5720a; }
   .toast.error { background: var(--priority-critical); }
 </style>
