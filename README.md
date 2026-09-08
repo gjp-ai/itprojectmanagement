@@ -4,6 +4,8 @@ A single-file Kanban board demo built for an internal IT PMO training/demo use c
 
 **Live demo:** https://gjp-ai.github.io/itprojectmanagement/
 
+![Screenshot of the Kanban board](docs/screenshot.png)
+
 ## Running it
 
 No build step, no server, no dependencies. Just open the file:
